@@ -4,7 +4,7 @@ document.documentElement.classList.add("js");
    DATOS DE LA FIESTA: cambiá solo esta parte
    ===================================================== */
 const CONFIG = {
-  nombre: "Olivia",
+  nombre: "Albanys",
   edad: 7,
   ciudad: "Buenos Aires · Argentina",
   inicio: "2026-10-25T16:30:00-03:00",   // fecha y hora de inicio (con zona horaria)
