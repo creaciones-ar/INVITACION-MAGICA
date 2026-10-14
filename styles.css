@@ -1,287 +1,127 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ============ INVITACIÓN MÁGICA (plantilla) ============
+   Cambiá los colores desde estas variables */
+:root{
+  --noche:#0b1230; --noche2:#16205a; --oro:#e3c070; --oro2:#b8862b;
+  --vino:#6b1a2b; --perga1:#ecdcb0; --perga2:#d6bd84; --tinta:#3a2414; --texto:#e9ecf8;
+  --titulo:"Cinzel",serif; --cuerpo:"Cormorant Garamond",serif; --firma:"Great Vibes",cursive;
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:1.15rem;line-height:1.5;overflow-x:hidden}
+body.bloqueado{overflow:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+[hidden]{display:none!important}
+.art{pointer-events:none;user-select:none}
 
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap');
+/* fondo de estrellas */
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:
+   radial-gradient(1.5px 1.5px at 12% 18%,#fff9 50%,transparent),radial-gradient(1.5px 1.5px at 78% 12%,#fff8 50%,transparent),
+   radial-gradient(2px 2px at 40% 55%,#fff7 50%,transparent),radial-gradient(1.5px 1.5px at 88% 70%,#fff8 50%,transparent),
+   radial-gradient(1.5px 1.5px at 22% 85%,#fff7 50%,transparent),
+   linear-gradient(180deg,var(--noche) 0%,var(--noche2) 100%);
+  background-size:260px 300px,300px 260px,340px 320px,280px 340px,320px 280px,100% 100%}
 
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-image: url('fondo2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
+/* textos comunes */
+.titulo{font-family:var(--titulo);font-weight:700;font-size:clamp(1.6rem,7vw,2.2rem);line-height:1.2;color:var(--oro);text-align:center}
+.rotulo{font-family:var(--titulo);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#c9d0ea;text-align:center}
+.rotulo.osc{color:var(--vino)} .rotulo.clar{color:#f0c9d0}
+.chico{font-size:.9rem;opacity:.85;text-align:center}
+.clar{color:#e7d9f0;text-align:center}
+.nombre{font-family:var(--firma);font-weight:400;font-size:clamp(4.4rem,22vw,6.4rem);line-height:1;text-align:center;color:var(--oro);text-shadow:0 0 22px #e3c07066}
 
-/* Velo tenue sobre el fondo */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(10, 15, 30, 0.35);
-  pointer-events: none;
-  z-index: 1;
-}
+/* pergamino */
+.pergamino{background:radial-gradient(circle at 20% 15%,#f6ebc8,transparent 55%),linear-gradient(135deg,var(--perga1),var(--perga2));
+  color:var(--tinta);border-radius:6px;box-shadow:inset 0 0 38px #7a5a2a88,0 14px 30px #0008}
 
-/* Contenedor central con ESPACIADO ESPACIOSO entre secciones */
-/* Contenedor principal que queda por encima de la lluvia de estrellas */
-/* Contenedor adaptativo: se expande en PC y se ajusta en celulares */
-.main-container {
-  width: 100%;
-  max-width: 680px; /* Expande las fotos y textos en pantallas de PC */
-  padding: 40px 20px 90px 20px;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-  background: transparent !important;
-}
+section{position:relative;width:100%;max-width:520px;margin:0 auto;padding:48px 22px;display:flex;flex-direction:column;align-items:center;gap:14px}
 
-/* Mayor separación entre bloques para alargar la página */
-.seccion {
-  margin-bottom: 95px;
-}
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.js .reveal.in{opacity:1;transform:none}
 
-.foto-portada {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-}
+/* ---------- intro ---------- */
+#intro{position:fixed;inset:0;z-index:50;max-width:none;justify-content:center;background:linear-gradient(180deg,var(--noche),var(--noche2));transition:opacity .8s ease,visibility .8s ease}
+#intro.fuera{opacity:0;visibility:hidden}
+.owl{width:min(46vw,200px)}
+#intro .titulo{color:#f3deb0}
+.sobre{width:min(88vw,380px);padding:30px 18px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.para{font-weight:700;font-size:1.15rem;color:#2d5a3a}
+.sello{width:84px;height:84px;border-radius:50%;border:none;color:#f6c9c9;font-size:2rem;
+  background:radial-gradient(circle at 35% 30%,#e0505f,#a01e2e 55%,#6b0f1c);
+  box-shadow:inset 0 0 0 5px #8e1626,inset 0 0 0 7px #ffffff30,0 8px 14px #0006;animation:latido 2.2s ease-in-out infinite}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.hint{font-family:var(--titulo);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro)}
 
-/* Textos flotantes en Cursiva estilizada */
-.frase-texto {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #ffffff;
-  line-height: 1.45;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.7), 0 3px 10px rgba(0, 0, 0, 0.9);
-  padding: 0 10px;
-}
+/* sonido */
+.sonido{position:fixed;top:14px;right:14px;z-index:40;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--oro);background:#0b1230cc;color:var(--oro);font-size:1.2rem}
+.sonido.off{opacity:.55;text-decoration:line-through}
 
-.titulo-faltan {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 3px 10px rgba(0, 0, 0, 0.9);
-  margin-top: 20px;
-  margin-bottom: 25px;
-}
+/* ---------- portada ---------- */
+.portada{padding-top:90px;overflow:hidden;min-height:100svh;gap:6px}
+.banderas{position:absolute;top:0;left:0;right:0;display:flex;justify-content:center;gap:14px}
+.banderas i{width:46px;height:96px;display:grid;place-items:start center;padding-top:22px;font:700 1.4rem var(--titulo);color:#f4e7c2;clip-path:polygon(0 0,100% 0,100% 100%,50% 86%,0 100%);border-top:4px solid var(--oro)}
+.banderas i:nth-child(1){background:#8a1c2c}.banderas i:nth-child(2){background:#1f5a3a}.banderas i:nth-child(3){background:#1f3f8a}.banderas i:nth-child(4){background:#b8862b}
+.velas b{position:absolute;width:9px;height:38px;background:linear-gradient(90deg,#d9cfae,#fff6dc);border-radius:2px;animation:flota 4s ease-in-out infinite}
+.velas b::before{content:"";position:absolute;left:50%;top:-16px;width:10px;height:16px;margin-left:-5px;border-radius:50% 50% 50% 50%/65% 65% 35% 35%;background:radial-gradient(#fff8c0,#ffb030);filter:drop-shadow(0 0 8px #ffb030)}
+.velas b:nth-child(1){left:8%;top:120px}.velas b:nth-child(2){left:20%;top:190px;animation-delay:-1s}.velas b:nth-child(3){right:10%;top:130px;animation-delay:-2s}.velas b:nth-child(4){right:22%;top:200px;animation-delay:-.5s}.velas b:nth-child(5){left:46%;top:60px;animation-delay:-3s}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.castillo{position:absolute;bottom:90px;left:0;width:100%;opacity:.35}
+.edad{font-family:var(--titulo);font-weight:700;font-size:clamp(3.6rem,16vw,5rem);line-height:1;color:var(--oro);text-align:center}
+.personajes{width:min(86%,380px);margin-top:10px;position:relative}
+.barra{width:calc(100% + 44px);margin:10px -22px -48px;padding:16px 10px;background:var(--vino);border-top:2px solid var(--oro);display:flex;justify-content:space-around;align-items:center;font-family:var(--titulo);font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#f3deb0;position:relative}
+.barra strong{font-size:1.5rem;color:#fff}
 
-.titulo-cursiva {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.8rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 3px 10px rgba(0, 0, 0, 0.9);
-  margin-bottom: 20px;
-}
+/* ---------- carta ---------- */
+.carta{padding:30px 24px 36px;font-size:1.2rem;display:flex;flex-direction:column;gap:12px}
+.escudo{width:62px;margin:0 auto}
+.colegio{font-family:var(--titulo);font-weight:700;text-align:center;color:var(--vino);font-size:.95rem;letter-spacing:.06em}
+.colegio em{font-family:var(--cuerpo);font-weight:500;color:#5a4630;letter-spacing:0}
+.firma{font-family:var(--firma);font-size:3rem;line-height:1;text-align:right;color:#1f5a3a}
 
-.fecha-linea {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.3rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 3px 10px rgba(0, 0, 0, 0.9);
-  margin: 30px 0 15px 0;
-  white-space: nowrap;
-}
+/* ---------- boleto ---------- */
+.boleto{position:relative;width:100%;padding:22px 20px 24px;margin-top:6px;display:flex;flex-direction:column;gap:4px}
+.boleto h3{font-family:var(--titulo);font-size:1.25rem;color:var(--vino)}
+.etq{font-family:var(--titulo);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:#7a5a2a;margin-top:6px}
+.medalla{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#fff;border:5px solid #8e1626;font:700 1.15rem var(--titulo);color:#222}
+.boleto p:not(.chico):not(.etq){padding-right:70px}
+.faltan{font-family:var(--titulo);letter-spacing:.14em;color:var(--oro);text-align:center;font-size:.95rem}
 
-@media (max-width: 380px) {
-  .fecha-linea {
-    font-size: 1.9rem;
-    white-space: normal;
-  }
-}
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:340px;padding:15px 20px;border-radius:999px;font-family:var(--titulo);font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--oro)}
+.btn.oro{background:linear-gradient(180deg,#f3d88c,var(--oro2));color:#2a1a05;box-shadow:0 8px 16px #0006}
+.btn.borde{background:transparent;color:#f3deb0}
+.btn.vino{background:var(--vino);color:#f3deb0;border-color:#8e1626}
+.btn:disabled{opacity:.7}
 
-/* Contador en Cajas Neón */
-/* Reloj expandido */
-.clock-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  max-width: 420px; /* Permite que los bloques respiren mejor */
-  margin: 25px auto;
-}
+/* ---------- sombrero ---------- */
+.panel{width:100%;padding:34px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.panel .titulo.osc{color:var(--vino)}
+.sombrero{width:min(60%,220px)}
+.casa{width:100%;padding:16px;border-radius:10px;font-weight:700;text-align:center;color:#fff;animation:aparecer .6s ease}
+@keyframes aparecer{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.casa b{display:block;font-family:var(--titulo);font-size:1.3rem;margin-bottom:2px}
 
-.time-block {
-  background: rgba(12, 22, 42, 0.85);
-  border: 1px solid rgba(100, 160, 255, 0.6);
-  border-radius: 20px;
-  padding: 18px 10px;
-  backdrop-filter: blur(8px);
-  animation: titileoNeo 2s infinite alternate;
-}
+/* ---------- materiales ---------- */
+.lista{width:100%;list-style:none;padding:22px 22px 12px}
+.lista li{padding:11px 0 11px 28px;position:relative;border-bottom:1px solid #7a5a2a33}
+.lista li:last-child{border-bottom:none}
+.lista li::before{content:"✦";position:absolute;left:0;color:var(--vino)}
+.libros{width:44%;align-self:flex-end;margin:-26px -10px 0 0}
 
-@keyframes titileoNeo {
-  0% {
-    box-shadow: 0 0 10px rgba(41, 121, 255, 0.4), inset 0 0 8px rgba(41, 121, 255, 0.2);
-    border-color: rgba(65, 130, 245, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 25px rgba(41, 121, 255, 0.95), inset 0 0 15px rgba(41, 121, 255, 0.6);
-    border-color: rgba(120, 190, 255, 0.95);
-  }
-}
+/* ---------- confirmar ---------- */
+.confirmar{max-width:none;background:linear-gradient(180deg,#4a1220,var(--vino));padding:56px 22px 60px;align-items:center}
+.pildora{padding:6px 18px;border:1px solid #f0c9d0aa;border-radius:999px;font-family:var(--titulo);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}
 
-.time-block span {
-  display: block;
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-}
+/* ---------- final ---------- */
+.final{padding-bottom:70px}
+.vuelo{width:min(70%,280px)}
+.rollo{margin-top:-30px;padding:22px 40px;text-align:center;display:flex;flex-direction:column;background:linear-gradient(135deg,var(--perga1),var(--perga2));color:var(--tinta);border-radius:30px 8px 30px 8px;box-shadow:0 10px 22px #0008;transform:rotate(-3deg)}
+.rollo b{font-family:var(--titulo);font-size:.95rem;color:var(--vino)}
+.rollo span{font-family:var(--firma);font-size:2.2rem;line-height:1;color:#1f5a3a}
+.farol{width:30%;align-self:flex-start}
+.credito{font-family:var(--titulo);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;opacity:.6;margin-top:18px}
 
-.time-block small {
-  font-size: 0.75rem;
-  color: #c0d8ff;
-  letter-spacing: 2.5px;
-  font-weight: 600;
-}
-
-.direccion-texto {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-}
-
-.btn-ubicacion {
-  display: inline-block;
-  background: linear-gradient(135deg, #2b5876, #4e4376);
-  color: #ffffff;
-  text-decoration: none;
-  padding: 14px 35px;
-  border-radius: 30px;
-  font-weight: bold;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}
-
-/* Fotos de la galería adaptables a pantallas grandes */
-.galeria-vertical img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border-radius: 20px;
-  margin: 0 auto 35px auto;
-  display: block;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-}
-
-.alias-card {
-  background: rgba(12, 22, 42, 0.85);
-  border: 1px solid rgba(100, 160, 255, 0.5);
-  padding: 22px;
-  border-radius: 18px;
-  text-align: center;
-  backdrop-filter: blur(6px);
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(41, 121, 255, 0.3);
-}
-
-.btn-wsp {
-  display: inline-block;
-  background: #25d366;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 16px 40px;
-  border-radius: 35px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-  margin-top: 20px;
-}
-
-.btn-musica {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: rgba(212, 175, 55, 0.95);
-  color: #ffffff;
-  border: none;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  font-size: 1.3rem;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-  cursor: pointer;
-  z-index: 1000;
-}
-
-/* Lluvia de estrellas doradas y brillantes por TODO el ancho */
-/* Lluvia de estrellas detras del contenido */
-#estrellas-container {
-  position: fixed;
-  top: 0; 
-  left: 0;
-  width: 100vw; 
-  height: 100vh;
-  pointer-events: none;
-  z-index: 10; /* Se coloca detrás del texto y fotos */
-  overflow: hidden;
-}
-
-.estrella {
-  position: absolute;
-  top: -30px;
-  color: #ffd700; /* Dorado brillante */
-  pointer-events: none;
-  animation: caida linear infinite;
-  text-shadow: 0 0 12px #ffe600, 0 0 20px #ffaa00;
-  filter: drop-shadow(0 0 6px #ffe600);
-}
-
-@keyframes caida {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(105vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(5, 10, 25, 0.92);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.8s ease;
-}
-
-.sobre-box {
-  text-align: center;
-  max-width: 90%;
-  width: 380px;
-}
-
-.foto-portada-sobre {
-  width: 100%;
-  border-radius: 20px;
-  margin-bottom: 20px;
-}
-
-.btn-abrir {
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 14px 32px;
-  border-radius: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1.05rem;
-  backdrop-filter: blur(5px);
-}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
