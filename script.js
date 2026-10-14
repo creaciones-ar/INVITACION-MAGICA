@@ -14,7 +14,7 @@ const CONFIG = {
   mapa: "https://www.google.com/maps/search/?api=1&query=Av.+Siempre+Viva+742+Buenos+Aires",
   whatsapp: "5491121825254",              // con código de país, sin + ni espacios
   limite: "15 de Abril",
-  zona: "Avellaneda/Argentina/Buenos_Aires"
+  zona: "America/Argentina/Buenos_Aires"
 };
 
 /* Casas del sombrero (inventadas, podés cambiarlas) */
