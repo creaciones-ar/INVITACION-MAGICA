@@ -5,24 +5,25 @@ document.documentElement.classList.add("js");
    ===================================================== */
 const CONFIG = {
   nombre: "Albanys",
-  edad: 7,
-  ciudad: "Buenos Aires · Argentina",
-  inicio: "2026-10-25T16:30:00-03:00",   // fecha y hora de inicio (con zona horaria)
-  fin:    "2026-10-25T21:00:00-03:00",   // fecha y hora de fin
-  lugar: "Salón Encantado",
-  direccion: "Av. Siempre Viva 742, Buenos Aires",
+  edad: 9,
+  ciudad: "Avellaneda, Buenos Aires · Argentina",
+  inicio: "2027-04-19T16:30:00-03:00",   // fecha y hora de inicio (con zona horaria)
+  fin:    "2027-04-19T19:30:00-03:00",   // fecha y hora de fin
+  lugar: "Mi Casa",
+  direccion: "Llorente 528, Buenos Aires",
   mapa: "https://www.google.com/maps/search/?api=1&query=Av.+Siempre+Viva+742+Buenos+Aires",
-  whatsapp: "5491100000000",              // con código de país, sin + ni espacios
-  limite: "23 de octubre",
-  zona: "America/Argentina/Buenos_Aires"
+  whatsapp: "5491121825254",              // con código de país, sin + ni espacios
+  limite: "15 de Abril",
+  zona: "Avellaneda/Argentina/Buenos_Aires"
 };
 
 /* Casas del sombrero (inventadas, podés cambiarlas) */
 const CASAS = [
-  { nombre: "Casa Dragón",  texto: "Valiente, aventurero y con mucha energía.", color: "#8a1c2c" },
-  { nombre: "Casa Fénix",   texto: "Creativo, soñador y siempre se levanta.",   color: "#b8862b" },
-  { nombre: "Casa Lechuza", texto: "Curioso, ingenioso y con mucha sabiduría.", color: "#1f3f8a" },
-  { nombre: "Casa Lobo",    texto: "Leal, protector y el mejor compañero.",     color: "#1f5a3a" }
+  { nombre: "Slytherin",  texto: "Fundada por Salazar Slytherin. Valora la ambición, la astucia, la determinación y el ingenio. Sus colores son el verde y el plateado, se identifican por el agua y la serpiente. Entre sus miembros más célebres se encuentran Severus Snape, Draco Malfoy y Tom Riddle (Lord Voldemort).", color: "#1f5a3a" },
+  { nombre: "Ravenclaw",   texto: "Fundada por Rowena Ravenclaw. Valora la sabiduría, el aprendizaje, la inteligencia y la creatividad. Sus colores son el azul y el bronce (o plateado en las películas), se identifican por aire y el águila. Miembros reconocidos incluyen a Luna Lovegood y Cho Chang.",   color: "#1f3f8a" },
+  { nombre: "Hufflepuff", texto: "Fundada por Helga Hufflepuff. Valora la lealtad, la honestidad, el trabajo duro, la paciencia y la justicia. Sus colores son el amarillo y el negro, se identifican por la tierra y el tejón. Magos notables de esta casa incluyen a Newt Scamander, Cedric Diggory y Nymphadora Tonks.", color: "#b8862b" },
+  { nombre: "Gryffindor",    texto: "Fundada por Godric Gryffindor. Valora el coraje, la valentía, la audacia y la caballerosidad. Sus colores emblemáticos son el escarlata y el oro, se identifican por el fuego y el león. Entre sus miembros más famosos destacan Harry Potter, Hermione Granger, Ron Weasley y Albus Dumbledore.",     color: "#8a1c2c" }
+   Gryffindor
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
