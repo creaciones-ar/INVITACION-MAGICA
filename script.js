@@ -1,63 +1,114 @@
-function abrirInvitacion() {
-  const overlay = document.getElementById("overlay");
-  if (overlay) {
-    overlay.style.opacity = "0";
-    setTimeout(() => {
-      overlay.style.display = "none";
-    }, 800);
+document.documentElement.classList.add("js");
+
+/* =====================================================
+   DATOS DE LA FIESTA: cambiá solo esta parte
+   ===================================================== */
+const CONFIG = {
+  nombre: "Olivia",
+  edad: 7,
+  ciudad: "Buenos Aires · Argentina",
+  inicio: "2026-10-25T16:30:00-03:00",   // fecha y hora de inicio (con zona horaria)
+  fin:    "2026-10-25T21:00:00-03:00",   // fecha y hora de fin
+  lugar: "Salón Encantado",
+  direccion: "Av. Siempre Viva 742, Buenos Aires",
+  mapa: "https://www.google.com/maps/search/?api=1&query=Av.+Siempre+Viva+742+Buenos+Aires",
+  whatsapp: "5491100000000",              // con código de país, sin + ni espacios
+  limite: "23 de octubre",
+  zona: "America/Argentina/Buenos_Aires"
+};
+
+/* Casas del sombrero (inventadas, podés cambiarlas) */
+const CASAS = [
+  { nombre: "Casa Dragón",  texto: "Valiente, aventurero y con mucha energía.", color: "#8a1c2c" },
+  { nombre: "Casa Fénix",   texto: "Creativo, soñador y siempre se levanta.",   color: "#b8862b" },
+  { nombre: "Casa Lechuza", texto: "Curioso, ingenioso y con mucha sabiduría.", color: "#1f3f8a" },
+  { nombre: "Casa Lobo",    texto: "Leal, protector y el mejor compañero.",     color: "#1f5a3a" }
+];
+
+document.addEventListener("DOMContentLoaded", function () {
+  const ini = new Date(CONFIG.inicio), fin = new Date(CONFIG.fin);
+  const f = (d, o) => new Intl.DateTimeFormat("es-AR", Object.assign({ timeZone: CONFIG.zona }, o)).format(d);
+  const hora = d => f(d, { hour: "2-digit", minute: "2-digit", hour12: false });
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+  /* ---- rellenar textos ---- */
+  const datos = {
+    nombre: CONFIG.nombre, edad: CONFIG.edad, ciudad: CONFIG.ciudad,
+    lugar: CONFIG.lugar, direccion: CONFIG.direccion, limite: CONFIG.limite,
+    diaSemana: cap(f(ini, { weekday: "long" })),
+    dia: f(ini, { day: "numeric" }), mes: f(ini, { month: "long" }),
+    fechaLarga: f(ini, { weekday: "long", day: "numeric", month: "long" }),
+    horaInicio: hora(ini) + " h",
+    horario: "de " + hora(ini) + " a " + hora(fin) + " h"
+  };
+  document.querySelectorAll("[data-bind]").forEach(el => { el.textContent = datos[el.dataset.bind] || ""; });
+
+  /* ---- enlaces ---- */
+  document.getElementById("btn-mapa").href = CONFIG.mapa;
+  const msg = "¡Hola! Confirmo mi asistencia al cumple de " + CONFIG.nombre + ".";
+  document.getElementById("btn-wa").href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+
+  /* ---- abrir la carta ---- */
+  const musica = document.getElementById("musica"), sonido = document.getElementById("sonido");
+  document.getElementById("sello").addEventListener("click", function () {
+    musica.play().catch(() => {});
+    document.getElementById("intro").classList.add("fuera");
+    document.getElementById("main").hidden = false;
+    sonido.hidden = false;
+    document.body.classList.remove("bloqueado");
+    window.scrollTo(0, 0);
+    iniciarReveal();
+  });
+  sonido.addEventListener("click", function () {
+    if (musica.paused) { musica.play(); sonido.classList.remove("off"); }
+    else { musica.pause(); sonido.classList.add("off"); }
+  });
+
+  /* ---- aparecer al hacer scroll ---- */
+  function iniciarReveal() {
+    const els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    els.forEach(e => obs.observe(e));
   }
 
-  var audio = document.getElementById("musica");
-  if (audio) {
-    audio.volume = 0.5;
-    audio.play().then(() => {
-      console.log("Música iniciada correctamente.");
-    }).catch(function(error) {
-      console.log("Error al reproducir audio: ", error);
-    });
+  /* ---- cuenta regresiva ---- */
+  const faltan = document.getElementById("faltan");
+  function contar() {
+    const d = ini - Date.now();
+    if (d <= 0) { faltan.textContent = "¡La fiesta ya comenzó!"; return; }
+    const dias = Math.floor(d / 864e5), hs = Math.floor(d % 864e5 / 36e5), mn = Math.floor(d % 36e5 / 6e4);
+    faltan.textContent = "Faltan " + dias + " días, " + hs + " h y " + mn + " min";
   }
-}
+  contar(); setInterval(contar, 30000);
 
-/* Lluvia de Estrellas Doradas Grandes */
-function crearEstrellas() {
-  const container = document.getElementById('estrellas-container');
-  if (!container) return;
+  /* ---- agendar (descarga un archivo .ics) ---- */
+  document.getElementById("btn-agenda").addEventListener("click", function () {
+    const z = d => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT",
+      "DTSTART:" + z(ini), "DTEND:" + z(fin),
+      "SUMMARY:Cumple mágico de " + CONFIG.nombre,
+      "LOCATION:" + CONFIG.lugar + ", " + CONFIG.direccion,
+      "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+    a.download = "cumple-" + CONFIG.nombre.toLowerCase() + ".ics";
+    a.click();
+  });
 
-  for (let i = 0; i < 35; i++) {
-    const estrella = document.createElement('div');
-    estrella.className = 'estrella';
-    estrella.innerText = '✨';
-    estrella.style.left = Math.random() * 98 + 'vw';
-    estrella.style.animationDuration = (Math.random() * 3 + 2) + 's';
-    estrella.style.animationDelay = (Math.random() * 5) + 's';
-    estrella.style.fontSize = (Math.random() * 12 + 18) + 'px';
-    container.appendChild(estrella);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", crearEstrellas);
-
-/* Reloj Cuenta Regresiva */
-const fechaEvento = new Date(2026, 10, 15, 21, 0, 0).getTime();
-
-setInterval(function() {
-  const ahora = new Date().getTime();
-  const diferencia = fechaEvento - ahora;
-
-  if (diferencia > 0) {
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-    const dEl = document.getElementById("dias");
-    const hEl = document.getElementById("horas");
-    const mEl = document.getElementById("minutos");
-    const sEl = document.getElementById("segundos");
-
-    if (dEl) dEl.innerText = dias < 10 ? '0' + dias : dias;
-    if (hEl) hEl.innerText = horas < 10 ? '0' + horas : horas;
-    if (mEl) mEl.innerText = minutos < 10 ? '0' + minutos : minutos;
-    if (sEl) sEl.innerText = segundos < 10 ? '0' + segundos : segundos;
-  }
-}, 1000);
+  /* ---- sombrero seleccionador ---- */
+  const btnS = document.getElementById("btn-sombrero"), casa = document.getElementById("casa");
+  btnS.addEventListener("click", function () {
+    btnS.disabled = true; casa.hidden = true;
+    btnS.textContent = "Mmm… difícil, muy difícil…";
+    setTimeout(function () {
+      const c = CASAS[Math.floor(Math.random() * CASAS.length)];
+      casa.style.background = c.color;
+      casa.innerHTML = "<b>¡" + c.nombre + "!</b>" + c.texto;
+      casa.hidden = false;
+      btnS.disabled = false; btnS.textContent = "Probar de nuevo";
+    }, 2200);
+  });
+});
