@@ -3,98 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación 15 - Nicole</title>
-
-<!-- Fuentes elegantes -->
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<!-- Íconos de FontAwesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
+<title>Un cumple mágico</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
 </head>
+<body class="bloqueado">
+<audio id="musica" loop src="musica.mp3"></audio>
 
-<body>
-
-<!-- MÚSICA CON RUTA COMPLETA -->
-<audio id="musica" loop preload="auto">
- <source src="https://creaciones-ar.github.io/INVITACION-MIS-15/musica.mp3" type="audio/mpeg">
-</audio>
-
-<!-- PANTALLA DE BIENVENIDA / CORTINA -->
-<div id="overlay" class="overlay">
-  <div class="sobre-box">
-    <img src="imagenprimera.jpg" alt="Mis 15 Nicole" class="foto-portada-sobre">
-    <button onclick="abrirInvitacion()" class="btn-abrir">✨ HAZ CLIC PARA INGRESAR ✨</button>
+<!-- ===== PANTALLA 1: llega la lechuza ===== -->
+<section id="intro">
+  <img src="img/lechuza.png" class="art owl" alt="" onerror="this.style.display='none'">
+  <h1 class="titulo">¡Llegó una lechuza<br>con tu carta!</h1>
+  <p class="rotulo">Correo mágico</p>
+  <div class="sobre pergamino">
+    <button id="sello" class="sello" aria-label="Abrir la carta">✦</button>
+    <p class="para">Para el invitado más mágico</p>
+    <p class="chico" data-bind="ciudad"></p>
   </div>
-</div>
+  <p class="hint">Tocá el sello para abrir</p>
+</section>
 
-<div id="estrellas-container"></div>
+<button id="sonido" class="sonido" aria-label="Música" hidden>♪</button>
 
-<div class="main-container">
+<main id="main" hidden>
 
-  <div class="seccion-portada">
-    <img src="imagenprimera.jpg" alt="Mis 15 Nicole" class="foto-portada">
-  </div>
+  <!-- ===== PORTADA ===== -->
+  <section class="portada">
+    <div class="banderas"><i>D</i><i>F</i><i>L</i><i>W</i></div>
+    <div class="velas"><b></b><b></b><b></b><b></b><b></b></div>
+    <img src="img/castillo.png" class="art castillo" alt="" onerror="this.style.display='none'">
+    <p class="rotulo reveal">Estás invitado al cumple de</p>
+    <h2 class="nombre reveal" data-bind="nombre"></h2>
+    <p class="edad reveal"><span data-bind="edad"></span></p>
+    <p class="rotulo reveal">años mágicos</p>
+    <img src="img/personajes.png" class="art personajes reveal" alt="" onerror="this.style.display='none'">
+    <div class="barra"><span data-bind="diaSemana"></span><strong><span data-bind="dia"></span> <span data-bind="mes"></span></strong><span data-bind="horaInicio"></span></div>
+  </section>
 
-  <div class="seccion frase-box">
-    <p class="frase-texto">✨ Una noche mágica me espera… y quiero que seas parte, para compartir juntos momentos inolvidables que quedarán para siempre en mi corazón ✨</p>
-  </div>
+  <!-- ===== CARTA ===== -->
+  <section class="carta-sec">
+    <article class="pergamino carta reveal">
+      <svg class="escudo" viewBox="0 0 60 70" aria-hidden="true"><path d="M5 5h50v32c0 16-14 24-25 28C19 61 5 53 5 37z" fill="#6b1a2b" stroke="#c9a24a" stroke-width="3"/><text x="30" y="43" text-anchor="middle" font-family="Cinzel" font-size="26" fill="#e3c070">✦</text></svg>
+      <p class="colegio">Colegio de Magia y Hechicería<br><em>Departamento de Cumpleaños Mágicos</em></p>
+      <p><em>Querido/a invitado/a:</em></p>
+      <p>Tenemos el placer de informarle que ha sido <b>aceptado/a</b> en la fiesta de cumpleaños número <b data-bind="edad"></b> de la gran hechicera <b data-bind="nombre"></b>.</p>
+      <p>Habrá hechizos, juegos, pociones y mucha torta. Las clases comienzan el <b data-bind="fechaLarga"></b> a las <b data-bind="horaInicio"></b>.</p>
+      <p>Esperamos su lechuza antes del <b data-bind="limite"></b>.</p>
+      <p class="firma" data-bind="nombre"></p>
+      <p class="chico">Directora de la fiesta</p>
+    </article>
+  </section>
 
-  <div class="seccion contador-seccion">
-    <h3 class="titulo-faltan">Faltan:</h3>
-    <div id="cuenta-regresiva" class="clock-container">
-      <div class="time-block"><span id="dias">00</span><small>DÍAS</small></div>
-      <div class="time-block"><span id="horas">00</span><small>HORAS</small></div>
-      <div class="time-block"><span id="minutos">00</span><small>MINUTOS</small></div>
-      <div class="time-block"><span id="segundos">00</span><small>SEGUNDOS</small></div>
+  <!-- ===== BOLETO ===== -->
+  <section class="boleto-sec">
+    <p class="rotulo reveal">Tu boleto mágico</p>
+    <h2 class="titulo reveal">¿Cuándo y dónde?</h2>
+    <div class="boleto pergamino reveal">
+      <h3>Expreso Encantado</h3>
+      <p class="chico">Boleto · Admite a un mago</p>
+      <p><b>Andén 5¾</b> · <b data-bind="lugar"></b></p>
+      <p class="etq">Cuándo</p><p><span data-bind="fechaLarga"></span>, <span data-bind="horario"></span></p>
+      <p class="etq">Dónde</p><p><span data-bind="lugar"></span><br><span data-bind="direccion"></span></p>
+      <div class="medalla">5¾</div>
     </div>
-  </div>
+    <p class="faltan reveal" id="faltan"></p>
+    <a id="btn-mapa" class="btn oro reveal" target="_blank" rel="noopener">Cómo llegar</a>
+    <button id="btn-agenda" class="btn borde reveal" type="button">Agendar la fecha</button>
+  </section>
 
-  <div class="seccion info-evento">
-    <h2 class="fecha-linea">✨ 15 Noviembre 2026 - 21:00 hs ✨</h2>
-    <p class="direccion-texto">Catamarca 1540</p>
-    <a class="btn-ubicacion" href="https://www.google.com/maps/place/Catamarca+1540,+C1246+Cdad.+Aut%C3%B3noma+de+Buenos+Aires/" target="_blank">
-      Ver ubicación 
-    </a>
-  </div>
+  <!-- ===== SOMBRERO ===== -->
+  <section class="sombrero-sec">
+    <article class="pergamino panel reveal">
+      <p class="rotulo osc">Antes de la fiesta…</p>
+      <h2 class="titulo osc">¿A qué casa vas a ir?</h2>
+      <p>Ponete el Sombrero Seleccionador y descubrí tu casa.</p>
+      <img src="img/sombrero.png" class="art sombrero" alt="Sombrero seleccionador" onerror="this.style.display='none'">
+      <button id="btn-sombrero" class="btn vino" type="button">Probar el sombrero</button>
+      <div id="casa" class="casa" hidden></div>
+    </article>
+  </section>
 
-  <div class="seccion galeria">
-    <div class="galeria-vertical">
-      <img src="foto 1.jpg" alt="Foto 1">
-      <img src="foto 2.jpg" alt="Foto 2">
-      <img src="foto 3.jpg" alt="Foto 3">
-      <img src="foto 4.jpg" alt="Foto 4">
-      <img src="foto 5.jpg" alt="Foto 5">
-      <img src="foto 6.jpg" alt="Foto 6">
-      <img src="foto 7.jpg" alt="Foto 7">
-      <img src="foto 8.jpg" alt="Foto 8">
-      <img src="foto 9.jpg" alt="Foto 9">
-      <img src="foto 10.jpg" alt="Foto 10">
-    </div>
-  </div>
+  <!-- ===== MATERIALES ===== -->
+  <section class="materiales">
+    <p class="rotulo reveal">Para el primer año</p>
+    <h2 class="titulo reveal">Lista de materiales</h2>
+    <ul class="pergamino lista reveal">
+      <li>Tu varita mágica (si tenés una)</li>
+      <li>Capa o túnica de mago: ¡vení disfrazado si querés!</li>
+      <li>Muchas ganas de jugar y aprender hechizos</li>
+      <li>Tu mejor sonrisa para la foto</li>
+    </ul>
+    <img src="img/libros.png" class="art libros" alt="" onerror="this.style.display='none'">
+  </section>
 
-  <div class="seccion regalos-box">
-    <h2 class="titulo-cursiva">🎁 Regalos</h2>
-    <p class="regalos-p">
-      El mejor regalo es tu presencia, pero si deseás obsequiarme algo, podés hacerlo a través de mi alias de Mercado Pago 💫
-    </p>
-    <div class="alias-card">
-      <p><strong>Alias:</strong> Nicole.aguiar.mis.15</p>
-      <p><strong>Nombre:</strong> Nicole-Aguiar-Ot</p>
-      <p><strong>CVU:</strong> 0000003100055991041744</p>
-    </div>
-  </div>
+  <!-- ===== CONFIRMAR ===== -->
+  <section class="confirmar">
+    <p class="rotulo clar reveal">Mandá tu lechuza</p>
+    <h2 class="titulo reveal">Confirmá tu asistencia</h2>
+    <p class="pildora reveal">Hasta el <span data-bind="limite"></span></p>
+    <a id="btn-wa" class="btn oro reveal" target="_blank" rel="noopener">Confirmar asistencia</a>
+    <p class="chico clar reveal">¿Dudas? Escribinos por WhatsApp.</p>
+  </section>
 
-  <div class="seccion rsvp-box">
-    <p class="frase-texto">✨ Nos encantaría contar con tu presencia ✨</p>
-    <a class="btn-wsp" href="https://wa.me/541156167548?text=Hola%20confirmo%20mi%20asistencia%20a%20los%2015%20de%20Nicole%20✨" target="_blank">
-      <i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i>Confirmar asistencia
-    </a>
-  </div>
+  <!-- ===== FINAL ===== -->
+  <section class="final">
+    <img src="img/lechuza-vuelo.png" class="art vuelo reveal" alt="" onerror="this.style.display='none'">
+    <div class="rollo reveal"><b>¡Hechizo completado!</b><span>Te espero</span></div>
+    <h2 class="nombre reveal" data-bind="nombre"></h2>
+    <p class="clar reveal">Prometo que esta fiesta va a ser mágica.</p>
+    <img src="img/farol.png" class="art farol" alt="" onerror="this.style.display='none'">
+    <p class="credito">Invitación digital por tu_marca</p>
+  </section>
 
-</div>
-
-<script src="script.js"></script>
-
+</main>
+<script src="script.js?v=1"></script>
 </body>
 </html>
