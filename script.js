@@ -23,7 +23,6 @@ const CASAS = [
   { nombre: "Ravenclaw",   texto: "Fundada por Rowena Ravenclaw. Valora la sabiduría, el aprendizaje, la inteligencia y la creatividad. Sus colores son el azul y el bronce (o plateado en las películas), se identifican por aire y el águila. Miembros reconocidos incluyen a Luna Lovegood y Cho Chang.",   color: "#1f3f8a" },
   { nombre: "Hufflepuff", texto: "Fundada por Helga Hufflepuff. Valora la lealtad, la honestidad, el trabajo duro, la paciencia y la justicia. Sus colores son el amarillo y el negro, se identifican por la tierra y el tejón. Magos notables de esta casa incluyen a Newt Scamander, Cedric Diggory y Nymphadora Tonks.", color: "#b8862b" },
   { nombre: "Gryffindor",    texto: "Fundada por Godric Gryffindor. Valora el coraje, la valentía, la audacia y la caballerosidad. Sus colores emblemáticos son el escarlata y el oro, se identifican por el fuego y el león. Entre sus miembros más famosos destacan Harry Potter, Hermione Granger, Ron Weasley y Albus Dumbledore.",     color: "#8a1c2c" }
-   Gryffindor
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
