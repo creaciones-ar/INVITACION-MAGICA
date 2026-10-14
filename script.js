@@ -11,7 +11,7 @@ const CONFIG = {
   fin:    "2027-04-19T19:30:00-03:00",   // fecha y hora de fin
   lugar: "Mi Casa",
   direccion: "Llorente 528, Buenos Aires",
-  mapa: "https://www.google.com/maps/search/?api=1&query=Av.+Siempre+Viva+742+Buenos+Aires",
+  mapa: "https://www.google.com/maps/search/?api=1&query=Llorente+528+Buenos+Aires",
   whatsapp: "5491121825254",              // con código de país, sin + ni espacios
   limite: "15 de Abril",
   zona: "America/Argentina/Buenos_Aires"
